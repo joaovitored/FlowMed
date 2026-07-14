@@ -1,0 +1,105 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Histórico de Atendimentos</title>
+  <link rel="stylesheet" href="{% static 'css/historico.css' %}">
+</head>
+<body>
+
+<header>
+  <div class="header-left">
+    <span>✚</span>
+    <div>
+      <h1>Sistema de Atendimento</h1>
+      <small>Histórico de Atendimentos</small>
+    </div>
+  </div>
+  <div class="header-right">
+    <span class="usuario-badge">👤 {{ request.user.get_full_name|default:request.user.username }}</span>
+    {% if request.user.perfil.tipo == 'recepcionista' %}
+      <a href="{% url 'atendimento_app:painel_recepcao' %}" class="btn-voltar">← Voltar</a>
+    {% else %}
+      <a href="{% url 'atendimento_app:painel_consultorio' %}" class="btn-voltar">← Voltar</a>
+    {% endif %}
+  </div>
+</header>
+
+<div class="container">
+
+  {% if messages %}
+    {% for message in messages %}
+      <div class="message {{ message.tags }}">{{ message }}</div>
+    {% endfor %}
+  {% endif %}
+
+  <!-- Filtro + resumo -->
+  <form method="GET" action="{% url 'atendimento_app:historico' %}">
+    <div class="filtro">
+      <label>Filtrar por data:</label>
+      <input type="date" name="data" value="{{ data_filtro }}">
+      <button type="submit">Filtrar</button>
+      
+      <div class="resumo">
+        <div class="resumo-item">
+          <strong>{{ senhas|dictsortreversed:"status"|length }}</strong>
+          <small>Total</small>
+        </div>
+        <div class="resumo-item">
+          <strong>{{ senhas|dictsort:"status"|length }}</strong>
+          <small>Atendidos</small>
+        </div>
+        <div class="resumo-item">
+          <strong>{{ senhas|dictsortreversed:"status"|length }}</strong>
+          <small>Cancelados</small>
+        </div>
+      </div>
+    </div>
+  </form>
+
+  <!-- Tabela -->
+  <div class="card">
+    <h2>Registros</h2>
+    <table>
+      <thead>
+        <tr>
+          <th>Senha</th>
+          <th>Paciente</th>
+          <th>Serviço</th>
+          <th>Consultório</th>
+          <th>Entrada</th>
+          <th>Chamado</th>
+          <th>Finalizado</th>
+          <th>Status</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for senha in senhas %}
+        <tr>
+          <td><strong>{{ senha.numero }}</strong></td>
+          <td>{{ senha.nome_paciente }}</td>
+          <td>{{ senha.get_tipo_servico_display }}</td>
+          <td>{{ senha.consultorio|default:"—" }}</td>
+          <td>{{ senha.criado_em|time:"H:i" }}</td>
+          <td>{{ senha.chamado_consultorio|time:"H:i"|default:"—" }}</td>
+          <td>{{ senha.finalizado_em|time:"H:i"|default:"—" }}</td>
+          <td>
+            <span class="badge badge-{{ senha.status }}">
+              {{ senha.get_status_display }}
+            </span>
+          </td>
+        </tr>
+        {% empty %}
+        <tr>
+          <td colspan="8" class="empty">Nenhum registro encontrado</td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+
+</div>
+</body>
+</html>

@@ -16,21 +16,23 @@ class Consultorio(models.Model):
     def __str__(self):
         return self.nome
     
+
 class Perfil(models.Model):
-     TIPO_CHOICES = [
+    TIPO_CHOICES = [
         ('recepcionista', 'Recepcionista'),
         ('medico', 'Médico'),
     ]
-     usuario = models.OneToOneField(User,on_delete=models.CASCADE)
-     tipo = models.CharField(max_length=20, choices=TIPO_CHOICES)
-     consultorio = models.ForeignKey(Consultorio,on_delete=models.SET_NULL,null=True,blank=True)
+    usuario = models.OneToOneField(User,on_delete=models.CASCADE)
+    tipo = models.CharField(max_length=20, choices=TIPO_CHOICES)
+    consultorio = models.ForeignKey(Consultorio,on_delete=models.SET_NULL,null=True,blank=True)
 
-     def __str__(self):
+    def __str__(self):
         return f"{self.usuario.username} ({self.get_tipo_display()})"
      
-     class Meta:
+    class Meta:
         verbose_name = 'Perfil'
         verbose_name_plural = 'Perfis'
+
      
 class Senha(models.Model):
 
@@ -68,8 +70,10 @@ class Senha(models.Model):
     chamado_consultorio = models.DateTimeField(null=True,blank=True)
     finalizado_em= models.DateTimeField(null=True, blank=True)
 
-    
+
     class Meta:
+        verbose_name = 'Senha'
+        verbose_name_plural = 'Senhas'
         ordering = ['-prioridade', 'criado_em']
 
     def save(self, *args, **kwargs):

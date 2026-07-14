@@ -1,0 +1,34 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Login — Sistema de Atendimento</title>
+  <link rel="stylesheet" href="{% static 'css/login.css' %}">
+</head>
+<body>
+<div class="card">
+  <div class="logo">
+    <div class="cross">✚</div>
+    <h1>Sistema de Atendimento</h1>
+    <p>Acesso restrito a funcionários</p>
+  </div>
+
+  {% if messages %}
+    {% for message in messages %}
+      <div class="error">{{ message }}</div>
+    {% endfor %}
+  {% endif %}
+
+  <form method="POST" action="{% url 'atendimento_app:login' %}">
+    {% csrf_token %}
+    <label>Usuário</label>
+    <input type="text" name="username" placeholder="Digite seu usuário" required>
+    <label>Senha</label>
+    <input type="password" name="password" placeholder="••••••••" required>
+    <button type="submit">Entrar</button>
+  </form>
+</div>
+</body>
+</html>

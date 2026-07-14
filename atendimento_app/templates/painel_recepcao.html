@@ -1,0 +1,146 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Painel da Recepção</title>
+  <link rel="stylesheet" href="{% static 'css/painel_recepcao.css' %}">
+</head>
+<body>
+
+<header>
+  <div class="header-left">
+    <span>✚</span>
+    <div>
+      <h1>Sistema de Atendimento</h1>
+    </div>
+  </div>
+  <div class="header-right">
+    <span class="usuario-badge">👤 {{ request.user.get_full_name|default:request.user.username }}</span>
+    <form method="POST" action="{% url 'atendimento_app:logout' %}">
+      {% csrf_token %}
+      <button type="submit" class="btn-logout">Sair</button>
+    </form>
+  </div>
+</header>
+
+<div class="container">
+  <div class="grid">
+
+    <!-- Coluna esquerda: cadastrar senha -->
+    <div>
+      <div class="card">
+        <h2>Cadastrar Nova Senha</h2>
+        <form method="POST" action="{% url 'atendimento_app:cadastrar_senha' %}">
+          {% csrf_token %}
+          <label>Nome do Paciente</label>
+          <input type="text" name="nome_paciente" placeholder="Nome completo" required>
+
+          <label>Tipo de Serviço</label>
+          <select name="tipo_servico" required>
+            <option value="">Selecione...</option>
+            <option value="consulta">Consulta</option>
+            <option value="exame">Exame</option>
+            <option value="retorno">Retorno</option>
+          </select>
+
+          <label>Prioridade</label>
+          <select name="prioridade">
+            <option value="minima">Mínima</option>
+            <option value="baixa">Baixa</option>
+            <option value="media" selected>Média</option>
+            <option value="alta">Alta</option>
+            <option value="maxima">Máxima</option>
+          </select>
+
+          <button type="submit" class="btn btn-primary">Cadastrar Senha</button>
+        </form>
+      </div>
+    </div>
+
+    <!-- Coluna direita: fila -->
+    <div>
+      <div class="card">
+        <h2>Fila de Espera</h2>
+
+        <!-- Última chamada -->
+        {% if ultima_chamada %}
+        <div class="ultima-chamada">
+          <div class="numero">{{ ultima_chamada.numero }}</div>
+          <div class="info">
+            <small>Última chamada</small>
+            <strong>{{ ultima_chamada.nome_paciente }}</strong>
+            <small>{{ ultima_chamada.get_tipo_servico_display }} · Prioridade {{ ultima_chamada.get_prioridade_display }}</small>
+          </div>
+        </div>
+        {% endif %}
+
+        <!-- Mensagens -->
+        {% if messages %}
+          {% for message in messages %}
+            <div class="message {{ message.tags }}">{{ message }}</div>
+          {% endfor %}
+        {% endif %}
+
+        <!-- Busca -->
+        <form method="GET" action="{% url 'atendimento_app:painel_recepcao' %}">
+          <div class="search-bar">
+            <input type="text" name="g" value="{{ busca_paciente }}" placeholder="Buscar paciente...">
+            <button type="submit">Buscar</button>
+          </div>
+        </form>
+
+        <!-- Tabela -->
+        <table>
+          <thead>
+            <tr>
+              <th>Senha</th>
+              <th>Paciente</th>
+              <th>Serviço</th>
+              <th>Prioridade</th>
+              <th>Ações</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for senha in senhas_aguardando %}
+            <tr>
+              <td><strong>{{ senha.numero }}</strong></td>
+              <td>{{ senha.nome_paciente }}</td>
+              <td>{{ senha.get_tipo_servico_display }}</td>
+              <td>
+                <span class="badge badge-{{ senha.prioridade }}">
+                  {{ senha.get_prioridade_display }}
+                </span>
+              </td>
+              <td>
+                <div class="acoes">
+                  <form method="POST" action="{% url 'atendimento_app:chamar_recepcao' senha.id %}">
+                  {% csrf_token %}
+                  <select name="consultorio_id" required>
+                    <option value="">Consultório...</option>
+                    {% for consultorio in consultorios %}
+                      <option value="{{ consultorio.id }}">{{ consultorio.nome }}</option>
+                    {% endfor %}
+                  </select>
+                  <button type="submit" class="btn-sm btn-chamar">Chamar</button>
+                </form>
+                </div>
+              </td>
+            </tr>
+            {% empty %}
+            <tr>
+              <td colspan="5" class="empty">Nenhum paciente aguardando</td>
+            </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+
+      </div>
+    </div>
+
+  </div>
+</div>
+
+</body>
+</html>

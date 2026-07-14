@@ -1,0 +1,21 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sistema de Atendimento</title>
+      <link rel="stylesheet" href="{% static 'css/index.css' %}">
+
+</head>
+<body>
+    <div class="card">
+        <div class="cross">+</div>
+        <h1>Sistema de atendimento</h1>
+        <p>Gerencie filas de atendimento de forma simples e eficiente</p>
+        <a href="{% url 'atendimento_app:login' %}" class="btn btn-primary">Acessar o Sistema</a>
+        <p class="footer">Acesso restrito a funcionários autorizados</p>
+
+    </div>
+</body>
+</html>

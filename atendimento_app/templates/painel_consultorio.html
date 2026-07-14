@@ -1,0 +1,102 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Painel do Consultório</title>
+  <link rel="stylesheet" href="{% static 'css/painel_consultorio.css' %}">
+
+</head> 
+
+<body data-consultorio-id="{{ consultorio.id }}" data-csrf="{{ csrf_token }}">
+
+
+<header>
+  <div class="header-left">
+    <span>✚</span>
+    <div>
+      <h1>Sistema de Atendimento</h1>
+      <small>Painel do Médico</small>
+    </div>
+  </div>
+  <div class="header-right">
+    <span class="usuario-badge">👤 {{ request.user.get_full_name|default:request.user.username }}</span>
+    <span class="consultorio-badge">{{ consultorio }}</span>
+    <form method="POST" action="{% url 'atendimento_app:logout' %}">
+      {% csrf_token %}
+      <button type="submit" class="btn-logout">Sair</button>
+    </form>
+  </div>
+</header>
+
+<div class="container">
+
+  {% if messages %}
+    {% for message in messages %}
+      <div class="message {{ message.tags }}">{{ message }}</div>
+    {% endfor %}
+  {% endif %}
+
+  <!-- Senha atual em atendimento -->
+  {% if senha_atual %}
+  <div class="senha-atual">
+    <div class="left">
+      <small>Em atendimento agora</small>
+      <strong>{{ senha_atual.nome_paciente }} — {{ senha_atual.get_tipo_servico_display }}</strong>
+    </div>
+    <div class="numero">{{ senha_atual.numero }}</div>
+    <form method="POST" action="{% url 'atendimento_app:finalizar_atendimento' senha_atual.id %}">
+      {% csrf_token %}
+      <button type="submit" class="btn-finalizar">Finalizar Atendimento</button>
+    </form>
+  </div>
+  {% endif %}
+
+  <!-- Fila aguardando -->
+  <div class="card">
+    <h2>Fila Aguardando Consultório</h2>
+    <table>
+      <thead>
+        <tr>
+          <th>Senha</th>
+          <th>Paciente</th>
+          <th>Serviço</th>
+          <th>Prioridade</th>
+          <th>Aguardando desde</th>
+          <th>Ação</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for senha in senhas_aguardando %}
+        <tr>
+          <td><strong>{{ senha.numero }}</strong></td>
+          <td>{{ senha.nome_paciente }}</td>
+          <td>{{ senha.get_tipo_servico_display }}</td>
+          <td>
+            <span class="badge badge-{{ senha.prioridade }}">
+              {{ senha.get_prioridade_display }}
+            </span>
+          </td>
+          <td>{{ senha.chamado_recepcao|time:"H:i" }}</td>
+          <td>
+            <form method="POST" action="{% url 'atendimento_app:chamar_consultorio' senha.id %}">
+              {% csrf_token %}
+              <button type="submit" class="btn-chamar">Chamar</button>
+            </form>
+          </td>
+        </tr>
+        {% empty %}
+        <tr>
+          <td colspan="6" class="empty">Nenhum paciente aguardando</td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+
+
+</div>
+<script src="{% static 'js/painel_consultorio.js' %}"></script>
+</body>
+</html>

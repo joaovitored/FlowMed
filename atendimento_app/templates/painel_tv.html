@@ -1,0 +1,52 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Painel de Chamadas</title>
+  <link rel="stylesheet" href="{% static 'css/painel_tv.css' %}">
+</head>
+<body>
+
+<header>
+  <div class="header-left">
+    <span>✚</span>
+    <div>
+      <h1>Sistema de Atendimento</h1>
+      <small>Painel de Chamadas</small>
+    </div>
+  </div>
+  <div class="hora" id="hora">--:--</div>
+</header>
+
+<div class="chamada-atual">
+  <small>Chamando agora</small>
+  <div class="numero-destaque" id="numero">---</div>
+  <div class="nome-destaque" id="nome">Aguardando chamada...</div>
+  <div class="consultorio-destaque" id="consultorio"></div>
+</div>
+
+<div class="historico">
+  <h2>Últimas chamadas</h2>
+  <div class="historico-lista" id="historico-lista">
+    {% for senha in ultimas_chamadas %}
+    <div class="historico-item">
+      <div class="num">{{ senha.numero }}</div>
+      <div class="info">
+        <small>{{ senha.chamado_consultorio|time:"H:i" }}</small>
+        <strong>{{ senha.nome_paciente }}</strong>
+        <small>{{ senha.consultorio }}</small>
+      </div>
+    </div>
+    {% empty %}
+    <p style="color: #aaa; font-size: 0.9rem;">Nenhuma chamada ainda</p>
+    {% endfor %}
+  </div>
+</div>
+
+<script src="{% static 'js/painel_tv.js' %}"></script>
+
+
+</body>
+</html>
