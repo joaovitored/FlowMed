@@ -1,4 +1,4 @@
-# 🏥 Sistema de Atendimento — Tela de Chamadas para Clínicas
+# 🏥 FlowMed — Sistema de Gestão de Filas para Clínicas
 
 Sistema web de gestão de filas de atendimento desenvolvido em Django, com atualização em tempo real via WebSockets e anúncio de chamadas por voz automático no navegador.
 
@@ -106,8 +106,8 @@ JavaScript na TV recebe via WebSocket → atualiza tela + fala por voz
 
 ```bash
 # 1. Clone o repositório
-git clone https://github.com/joaovitored/Tela_Atendimento
-cd Tela_Atendimento
+git clone https://github.com/joaovitored/FlowMed
+cd FlowMed
 
 # 2. Crie e ative o ambiente virtual
 python -m venv venv
