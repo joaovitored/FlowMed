@@ -12,6 +12,15 @@ setInterval(atualizarHora, 1000);
 const wsProtocol = window.location.protocol === 'https:' ? 'wss://' : 'ws://';
 const ws = new WebSocket(wsProtocol + window.location.host + '/ws/tv/');
 
+function ativarSom() {
+    // faz uma fala vazia só pra desbloquear o áudio
+    const fala = new SpeechSynthesisUtterance('');
+    window.speechSynthesis.speak(fala);
+
+    // esconde o overlay
+    document.getElementById('ativar-som').style.display = 'none';
+}
+
 ws.onmessage = function(event) {
     const data = JSON.parse(event.data);
 

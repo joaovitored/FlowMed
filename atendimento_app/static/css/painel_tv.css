@@ -1,23 +1,165 @@
-* { box-sizing: border-box; margin: 0; padding: 0; }
-body { font-family: 'Segoe UI', sans-serif; background: white; min-height: 100vh; display: flex; flex-direction: column; }
+*{
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
 
-header { background: white; border-bottom: 2px solid #e63946; padding: 1rem 2rem; display: flex; align-items: center; justify-content: space-between; }
-.header-left { display: flex; align-items: center; gap: 0.75rem; }
-.header-left span { font-size: 1.5rem; color: #e63946; }
-.header-left h1 { font-size: 1.1rem; font-weight: 700; color: #1a1a2e; }
-.header-left small { font-size: 0.8rem; color: #666; display: block; }
-.hora { font-size: 1.5rem; font-weight: 700; color: #1a1a2e; }
+body {
+    font-family: 'Segoe UI', sans-serif;
+    background: white;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
 
-.chamada-atual { flex: 1; display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 3rem 2rem; background: white; }
-.chamada-atual small { font-size: 1rem; color: #888; text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 1rem; }
-.numero-destaque { font-size: 10rem; font-weight: 900; color: #e63946; line-height: 1; margin-bottom: 0.5rem; }
-.nome-destaque { font-size: 2.5rem; font-weight: 700; color: #1a1a2e; margin-bottom: 0.5rem; }
-.consultorio-destaque { font-size: 1.5rem; color: #666; font-weight: 500; }
+header {
+    background: white;
+    border-bottom: 2px solid #e63946;
+    padding: 1rem 2rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
 
-.historico { background: #f0f4f8; padding: 1rem 2rem; border-top: 1.5px solid #e0e0e0; }
-.historico h2 { font-size: 0.75rem; color: #888; text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 0.75rem; }
-.historico-lista { display: flex; gap: 1rem; }
-.historico-item { background: white; border: 1px solid #e0e0e0; border-radius: 8px; padding: 0.75rem 1.2rem; flex: 1; display: flex; align-items: center; gap: 1rem; }
-.historico-item .num { font-size: 1.5rem; font-weight: 800; color: #e63946; }
-.historico-item .info small { color: #aaa; font-size: 0.75rem; }
-.historico-item .info strong { display: block; color: #1a1a2e; font-size: 0.9rem; }
+.header-left {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+}
+
+.header-left span {
+    font-size: 1.5rem;
+    color: #e63946;
+}
+
+.header-left h1 { 
+    font-size: 1.1rem;
+    font-weight: 700;
+    color: #1a1a2e;
+}
+.header-left small {
+    font-size: 0.8rem;
+    color: #666;
+    display: block;
+}
+
+.hora { 
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: #1a1a2e;
+}
+
+.chamada-atual { 
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 3rem 2rem;
+    background: white;
+}
+
+.chamada-atual small { 
+    font-size: 1rem; color: #888;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    margin-bottom: 1rem;
+}
+
+.numero-destaque {
+    font-size: 10rem;
+    font-weight: 900;
+    color: #e63946;
+    line-height: 1;
+    margin-bottom: 0.5rem;
+}
+
+.nome-destaque { 
+    font-size: 2.5rem;
+    font-weight: 700;
+    color: #1a1a2e;
+    margin-bottom: 0.5rem;
+}
+
+.consultorio-destaque { 
+    font-size: 1.5rem;
+    color: #666;
+    font-weight: 500;
+}
+
+.historico { 
+    background: #f0f4f8;
+    padding: 1rem 2rem;
+    border-top: 1.5px solid#e0e0e0;
+}
+
+.historico h2 { 
+    font-size: 0.75rem;
+    color: #888;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    margin-bottom: 0.75rem;
+}
+
+.historico-lista { 
+    display: flex;
+    gap: 1rem;
+}
+
+.historico-item {
+    background: white;
+    border: 1px solid #e0e0e0;
+    border-radius: 8px;
+    padding: 0.75rem 1.2rem;
+    flex: 1;
+    display: flex;
+    align-items:
+    center; gap: 1rem;
+}
+
+.historico-item .num {
+    font-size: 1.5rem;
+    font-weight: 800;
+    color: #e63946;
+}
+
+.historico-item .info small {
+ color: #aaa;
+ font-size: 0.75rem;
+}
+
+.historico-item .info strong {
+    display: block;
+    color: #1a1a2e;
+    font-size: 0.9rem;
+}
+
+
+.overlay-som {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 9999;
+}
+
+.btn-ativar-som {
+  padding: 1.5rem 3rem;
+  font-size: 1.5rem;
+  font-weight: 700;
+  background: #e63946;
+  color: white;
+  border: none;
+  border-radius: 12px;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+.btn-ativar-som:hover {
+  background: #c1121f;
+}
