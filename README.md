@@ -1,5 +1,8 @@
-# 🏥 FlowMed — Sistema de Gestão de Filas para Clínicas
+#  FlowMed — Sistema de Gestão de Filas para Clínicas
 
+<p align="center">
+  <img src="atendimento_app/static/images/FlowMed.svg" alt="FlowMed Logo" width="300">
+</p>
 Sistema web de gestão de filas de atendimento desenvolvido em Django, com atualização em tempo real via WebSockets e anúncio de chamadas por voz automático no navegador.
 
 > Projeto desenvolvido para resolver um problema real: clínicas populares e UBSs que ainda dependem de senha de papel e atendente gritando número — sem organização, sem transparência e sem respeito à fila de prioridade.
@@ -168,16 +171,6 @@ daphne
 - **InMemoryChannelLayer**: substitui o Redis pra simplificar o setup — ideal pra projetos com baixo tráfego e sem necessidade de múltiplos workers
 - **Web Speech API**: síntese de voz nativa do navegador, sem custo e sem API externa
 - **Dois WebSocket consumers**: um pra TV (`painel_tv`) e um por consultório (`consultorio_{id}`) — cada médico recebe só as senhas do seu consultório
-
----
-
-## 🔮 Próximos passos
-
-- [ ] Métricas de atendimento no histórico (tempo médio de espera, pico de atendimento)
-- [ ] Estimativa de tempo de espera pra cada paciente na fila
-- [ ] Suporte a múltiplas filas por especialidade
-- [ ] Deploy com Redis gerenciado e múltiplos workers
-- [ ] Testes automatizados
 
 ---
 

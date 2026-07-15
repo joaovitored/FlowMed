@@ -78,7 +78,6 @@ input:focus {
 
 }
 
-
 button {
   width: 100%;
   padding: 0.85rem;
@@ -92,6 +91,7 @@ button {
   transition: background 0.2s;
   margin-top: 0.5rem;
 }
+
 button:hover { background: #c1121f; }
 .error {
   background: #fff0f0;

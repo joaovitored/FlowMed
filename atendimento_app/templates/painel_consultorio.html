@@ -79,11 +79,19 @@
           </td>
           <td>{{ senha.chamado_recepcao|time:"H:i" }}</td>
           <td>
-            <form method="POST" action="{% url 'atendimento_app:chamar_consultorio' senha.id %}">
-              {% csrf_token %}
-              <button type="submit" class="btn-chamar">Chamar</button>
-            </form>
-          </td>
+            
+  <div class="acoes">
+    <form method="POST" action="{% url 'atendimento_app:chamar_consultorio' senha.id %}">
+      {% csrf_token %}
+      <button type="submit" class="btn-chamar">Chamar</button>
+    </form>
+
+    <form method="POST" action="{% url 'atendimento_app:cancelar_senha' senha.id %}">
+      {% csrf_token %}
+      <button type="submit" class="btn-cancelar">Cancelar</button>
+    </form>
+  </div>
+</td>
         </tr>
         {% empty %}
         <tr>

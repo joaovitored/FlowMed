@@ -127,6 +127,16 @@
                   </select>
                   <button type="submit" class="btn-sm btn-chamar">Chamar</button>
                 </form>
+
+                <form method="POST" action="{% url 'atendimento_app:cancelar_senha' senha.id %}">
+            {% csrf_token %}
+            <button
+                type="submit"
+                class="btn-sm btn-cancelar">
+                Cancelar
+            </button>
+        </form>
+        
                 </div>
               </td>
             </tr>

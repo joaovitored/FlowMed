@@ -248,21 +248,41 @@ def cadastrar_senha(request):
 @require_POST
 def cancelar_senha(request, senha_id):
     try:
-        if request.user.perfil.tipo != 'recepcionista':
-            return redirect('atendimento_app:painel_consultorio')
+        perfil = request.user.perfil
     except Perfil.DoesNotExist:
         return redirect('/admin/')
-    
+
     senha = get_object_or_404(Senha, id=senha_id)
 
-    if senha.status not in ['aguardando_recepcao','aguardando_consultorio']:
-        messages.error(request, 'Esta senha não pode ser cancelada.')
-        return redirect('atendimento_app:painel_recepcao')
+    if perfil.tipo == 'recepcionista':
 
-    senha.status='cancelado'
+        if senha.status not in ['aguardando_recepcao', 'aguardando_consultorio']:
+            messages.error(request, 'Esta senha não pode ser cancelada.')
+            return redirect('atendimento_app:painel_recepcao')
+
+    elif perfil.tipo == 'medico':
+
+        # Garante que o médico só cancele pacientes do seu consultório
+        if senha.consultorio != perfil.consultorio:
+            messages.error(request, 'Você não pode cancelar essa senha.')
+            return redirect('atendimento_app:painel_consultorio')
+
+        if senha.status not in ['aguardando_consultorio', 'chamado']:
+            messages.error(request, 'Esta senha não pode ser cancelada.')
+            return redirect('atendimento_app:painel_consultorio')
+
+    else:
+        return redirect('/admin/')
+
+    senha.status = 'cancelado'
     senha.save()
 
-    return redirect('atendimento_app:painel_recepcao')
+    messages.success(request, f'Paciente {senha.nome_paciente} cancelado com sucesso.')
+
+    if perfil.tipo == 'recepcionista':
+        return redirect('atendimento_app:painel_recepcao')
+
+    return redirect('atendimento_app:painel_consultorio')
 
 
 @login_required
