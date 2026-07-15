@@ -7,6 +7,8 @@ Sistema web de gestão de filas de atendimento desenvolvido em Django, com atual
 
 > Projeto desenvolvido para resolver um problema real: clínicas populares e UBSs que ainda dependem de senha de papel e atendente gritando número — sem organização, sem transparência e sem respeito à fila de prioridade.
 
+
+Acesse o sistema em produção: [flowmed-kub3.onrender.com](https://flowmed-kub3.onrender.com)
 ---
 
 ## 📋 Funcionalidades
@@ -23,6 +25,34 @@ Sistema web de gestão de filas de atendimento desenvolvido em Django, com atual
 - **Autenticação por perfil**: login redireciona automaticamente pro painel certo
 
 ---
+
+## 🎬 Demonstração
+
+<p align="center">
+  <img src="atendimento_app/static/screenshots/apresentacao.gif" width="840">
+</p>
+
+
+## 📸 Screenshots
+
+
+<div align="center">
+<img src="atendimento_app/static/screenshots/login.png" width="400" alt="Login">
+</div>
+
+<div align="center">
+
+<img src="atendimento_app/static/screenshots/tela_consultorio.png" width="720" alt="Consultório">
+<img src="atendimento_app/static/screenshots/tela_recepcao.png" width="700" alt="Recepção">
+
+<br>
+
+<img src="atendimento_app/static/screenshots/tv_chamada.png" width="700" alt="TV">
+
+</div>
+
+
+
 
 ## 🛠️ Stack
 
