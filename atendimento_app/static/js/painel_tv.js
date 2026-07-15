@@ -13,12 +13,22 @@ const wsProtocol = window.location.protocol === 'https:' ? 'wss://' : 'ws://';
 const ws = new WebSocket(wsProtocol + window.location.host + '/ws/tv/');
 
 function ativarSom() {
-    // faz uma fala vazia só pra desbloquear o áudio
-    const fala = new SpeechSynthesisUtterance('');
-    window.speechSynthesis.speak(fala);
+  const fala = new SpeechSynthesisUtterance('');
+  window.speechSynthesis.speak(fala);
 
-    // esconde o overlay
-    document.getElementById('ativar-som').style.display = 'none';
+  const btn = document.getElementById('btn-som');
+  btn.textContent = '🔊 Som ativado';
+  btn.style.background = '#2e7d32';
+  btn.onclick = desativarSom;
+}
+
+function desativarSom() {
+  window.speechSynthesis.cancel();
+
+  const btn = document.getElementById('btn-som');
+  btn.textContent = '🔇 Ativar Som';
+  btn.style.background = '#e63946';
+  btn.onclick = ativarSom;
 }
 
 ws.onmessage = function(event) {
