@@ -66,6 +66,22 @@ header {
   padding: 1.5rem;
   box-shadow: 0 2px 12px rgba(0,0,0,0.06);
 }
+
+.card-img {
+  display: flex;
+  flex-direction: column; /* Alinha o logo e o texto 'Painel do Médico' um abaixo do outro */
+  align-items: flex-start; /* Alinha ambos à esquerda dentro do espaço deles */
+  gap: 0.25rem;            /* Espaço controlado entre a imagem e o texto de baixo */
+}
+
+.card-img img {
+  display: block;
+  max-width: 100%;
+  height: auto; /* Mantém a proporção exata do SVG */
+}
+
+
+
 .card h2 {
   font-size: 1rem;
   font-weight: 700;

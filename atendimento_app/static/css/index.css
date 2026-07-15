@@ -1,5 +1,10 @@
 
-  *{ box-sizing: border-box; margin: 0; padding: 0; }
+  *{
+      box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+  }
+
   body {
     font-family: 'Segoe UI', sans-serif;
     background: #f0f4f8;
@@ -8,6 +13,7 @@
     align-items: center;
     justify-content: center;
   }
+
   .card {
     background: white;
     border-radius: 16px;
@@ -17,9 +23,35 @@
     box-shadow: 0 4px 24px rgba(0,0,0,0.08);
     text-align: center;
   }
-  .cross { font-size: 3rem; color: #e63946; margin-bottom: 1rem; }
-  h1 { font-size: 1.5rem; font-weight: 800; color: #1a1a2e; margin-bottom: 0.5rem; }
-  p { font-size: 0.9rem; color: #666; margin-bottom: 2rem; }
+
+  .card img {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    margin-bottom: 1.5rem; /* Cria um espaçamento saudável para o texto de baixo */
+    max-width: 100%;       /* Garante que a imagem não morda as bordas em telas de celular */
+    height: auto;          /* Mantém a proporção correta do SVG ao reduzir */
+}
+
+  .cross { 
+    font-size: 3rem;
+    color: #e63946;
+    margin-bottom: 1rem;
+}
+
+  h1 {
+    font-size: 1.5rem;
+    font-weight: 800;
+    color: #1a1a2e;
+    margin-bottom: 0.5rem;
+}
+
+  p {
+    font-size: 0.9rem;
+    color: #666;
+    margin-bottom: 2rem;
+}
+
   .btn {
     display: block;
     width: 100%;
@@ -32,6 +64,17 @@
     text-decoration: none;
     margin-bottom: 0.75rem;
   }
-  .btn-primary { background: #e63946; color: white; }
-  .btn-primary:hover { background: #c1121f; }
-  .footer { font-size: 0.75rem; color: #aaa; margin-top: 1.5rem; }
+
+  .btn-primary {
+  background: #e63946;
+  color: white;
+}
+
+  .btn-primary:hover {
+    background: #c1121f;
+}
+  .footer {
+    font-size: 0.75rem;
+    color: #aaa;
+    margin-top: 1.5rem;
+}
