@@ -2,7 +2,8 @@ const body = document.body;
 const consultorioId = body.dataset.consultorioId;
 const csrfToken = body.dataset.csrf;
 
-const ws = new WebSocket('ws://' + window.location.host + '/ws/consultorio/' + consultorioId + '/');
+const wsProtocol = window.location.protocol === 'https:' ? 'wss://' : 'ws://';
+const ws = new WebSocket(wsProtocol + window.location.host + '/ws/consultorio/' + consultorioId + '/');
 
 ws.onmessage = function(event) {
     const data = JSON.parse(event.data);

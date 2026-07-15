@@ -9,7 +9,8 @@ atualizarHora();
 setInterval(atualizarHora, 1000);
 
 // WebSocket
-const ws = new WebSocket('ws://' + window.location.host + '/ws/tv/');
+const wsProtocol = window.location.protocol === 'https:' ? 'wss://' : 'ws://';
+const ws = new WebSocket(wsProtocol + window.location.host + '/ws/tv/');
 
 ws.onmessage = function(event) {
     const data = JSON.parse(event.data);
